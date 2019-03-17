@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('build/o4a/opencv_android/opencv/build/outputs/aar/opencv-debug.aar'))

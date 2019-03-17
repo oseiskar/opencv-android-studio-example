@@ -9,3 +9,6 @@ release/
 
 # User configuration.
 local.properties
+
+# Android cmake dirs
+.externalNativeBuild

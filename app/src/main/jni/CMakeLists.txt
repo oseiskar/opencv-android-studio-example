@@ -14,6 +14,5 @@ find_package(OpenCV REQUIRED COMPONENTS ${ANDROID_OPENCV_COMPONENTS})
 file(GLOB srcs *.cpp *.c)
 file(GLOB hdrs *.hpp *.h)
 
-include_directories("${CMAKE_CURRENT_LIST_DIR}")
 add_library(${target} SHARED ${srcs} ${hdrs})
 target_link_libraries(${target} ${ANDROID_OPENCV_COMPONENTS})

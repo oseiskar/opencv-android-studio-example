@@ -6,11 +6,26 @@ android {
 
     defaultConfig {
         applicationId "org.opencv.samples.tutorial2"
-        minSdkVersion 8
-        targetSdkVersion 8
+        minSdkVersion 21
+        targetSdkVersion 27
 
-        ndk {
-            moduleName "mixed_sample"
+        externalNativeBuild {
+            cmake {
+                arguments "-DOpenCV_DIR=" + project(':opencv-sdk').projectDir + "/build/OpenCV-android-sdk/sdk/native/jni",
+                        "-DANDROID_TOOLCHAIN=clang",
+                        "-DANDROID_STL=c++_static"
+                targets "mixed_sample"
+            }
+        }
+    }
+
+    dependencies {
+        implementation project(':opencv-sdk')
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/jni/CMakeLists.txt"
         }
     }
 
