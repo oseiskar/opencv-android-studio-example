@@ -1,14 +1,20 @@
 # OpenCV example for Android Studio
 
 OpenCV mixed-processing example modified to run in Android Studio.
+
+This builds OpenCV from source and uses the generated AAR as a Gradle Java dependency.
+The native code is linked to & included with CMake.
+
 The folder `opencv-sdk/build` is assumed to contain an OpenCV Android SDK build created
-the script `./build-opencv.sh`.
+with the included script `./build-opencv.sh`.
 
 On Debian Stretch, these packages needed to be installed with apt-get to succeed in this
 
  * ninja
  * ccache
  * openjdk-8-jdk
+
+Worked at the time of writing. Knowing the Android platform, not proabably very future proof.
 
 ### License
 
