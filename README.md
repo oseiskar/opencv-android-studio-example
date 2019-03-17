@@ -9,3 +9,9 @@ On Debian Stretch, these packages needed to be installed with apt-get to succeed
  * ninja
  * ccache
  * openjdk-8-jdk
+
+### License
+
+Original is from the [OpenCV tutorial mixed-processing-example](https://github.com/opencv/opencv/tree/2b35c1708b43e2f9e9173c8ee31808214f6ee3e6/samples/android/tutorial-2-mixedprocessing)
+Like the original the derived modifications by oseiskar are licensed under a BSD 3-clause license.
+See LICENSE for the full license text and Git commit history to see how that original code was modified.
