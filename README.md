@@ -18,6 +18,7 @@ Worked at the time of writing. Knowing the Android platform, not proabably very 
 
 ### License
 
-Original is from the [OpenCV tutorial mixed-processing-example](https://github.com/opencv/opencv/tree/2b35c1708b43e2f9e9173c8ee31808214f6ee3e6/samples/android/tutorial-2-mixedprocessing)
-Like the original the derived modifications by oseiskar are licensed under a BSD 3-clause license.
+Original is from the [OpenCV tutorial mixed-processing-example](https://github.com/opencv/opencv/tree/2b35c1708b43e2f9e9173c8ee31808214f6ee3e6/samples/android/tutorial-2-mixedprocessing).
+Like the original, the modifications by [`oseiskar`](https://github.com/oseiskar) are
+licensed under a BSD 3-clause license.
 See LICENSE for the full license text and Git commit history to see how that original code was modified.
