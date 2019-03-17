@@ -25,7 +25,7 @@ public class Tutorial2Activity extends Activity implements CvCameraViewListener2
     private static final int       VIEW_MODE_CANNY    = 2;
     private static final int       VIEW_MODE_FEATURES = 5;
 
-    private int                    mViewMode;
+    private int                    mViewMode = VIEW_MODE_FEATURES;
     private Mat                    mRgba;
     private Mat                    mIntermediateMat;
     private Mat                    mGray;
