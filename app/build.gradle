@@ -13,7 +13,7 @@ android {
             cmake {
                 arguments "-DOpenCV_DIR=" + project(':opencv-sdk').projectDir + "/build/OpenCV-android-sdk/sdk/native/jni",
                         "-DANDROID_TOOLCHAIN=clang",
-                        "-DANDROID_STL=c++_static"
+                        "-DANDROID_STL=c++_shared"
                 targets "mixed_sample"
             }
         }
