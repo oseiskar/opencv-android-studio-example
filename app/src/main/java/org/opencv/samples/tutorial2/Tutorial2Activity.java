@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,10 +25,16 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private static final String TAG = "OCVSample::Activity";
 
     private enum ViewMode {
-        RGBA,
-        GRAY,
-        CANNY,
-        FEATURES
+        RGBA("Preview RGBA"),
+        GRAY("Preview GRAY"),
+        CANNY("Canny"),
+        FEATURES("Find features");
+
+        ViewMode(String text) {
+            this.menuText = text;
+        }
+
+        final String menuText;
     }
 
     private ViewMode mViewMode = ViewMode.FEATURES;
@@ -35,10 +42,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     private Mat mIntermediateMat;
     private Mat mGray;
 
-    private MenuItem mItemPreviewRGBA;
-    private MenuItem mItemPreviewGray;
-    private MenuItem mItemPreviewCanny;
-    private MenuItem mItemPreviewFeatures;
+    private List<MenuItem> mMenuItems;
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
@@ -84,10 +88,10 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i(TAG, "called onCreateOptionsMenu");
-        mItemPreviewRGBA = menu.add("Preview RGBA");
-        mItemPreviewGray = menu.add("Preview GRAY");
-        mItemPreviewCanny = menu.add("Canny");
-        mItemPreviewFeatures = menu.add("Find features");
+        mMenuItems = new ArrayList<>();
+        for (ViewMode m : ViewMode.values()) {
+            mMenuItems.add(menu.add(m.menuText));
+        }
         return true;
     }
 
@@ -164,17 +168,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "called onOptionsItemSelected; selected item: " + item);
-
-        if (item == mItemPreviewRGBA) {
-            mViewMode = ViewMode.RGBA;
-        } else if (item == mItemPreviewGray) {
-            mViewMode = ViewMode.GRAY;
-        } else if (item == mItemPreviewCanny) {
-            mViewMode = ViewMode.CANNY;
-        } else if (item == mItemPreviewFeatures) {
-            mViewMode = ViewMode.FEATURES;
-        }
-
+        mViewMode = ViewMode.values()[mMenuItems.indexOf(item)];
         return true;
     }
 
