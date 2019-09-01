@@ -28,7 +28,8 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         RGBA("Preview RGBA"),
         GRAY("Preview GRAY"),
         CANNY("Canny"),
-        FEATURES("Find features");
+        FEATURES("Find features"),
+        OPTICAL_FLOW("Optical flow");
 
         ViewMode(String text) {
             this.menuText = text;
@@ -37,7 +38,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         final String menuText;
     }
 
-    private ViewMode mViewMode = ViewMode.FEATURES;
+    private ViewMode mViewMode = ViewMode.OPTICAL_FLOW;
     private Mat mRgba;
     private Mat mIntermediateMat;
     private Mat mGray;
@@ -161,6 +162,11 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
             mGray = inputFrame.gray();
             FindFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
             break;
+        case OPTICAL_FLOW:
+            mRgba = inputFrame.rgba();
+            mGray = inputFrame.gray();
+            FindOpticalFlow(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+            break;
         }
 
         return mRgba;
@@ -173,4 +179,5 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     }
 
     public native void FindFeatures(long matAddrGr, long matAddrRgba);
+    public native void FindOpticalFlow(long matAddrGr, long matAddrRgba);
 }
