@@ -21,26 +21,28 @@ import java.util.Collections;
 import java.util.List;
 
 public class Tutorial2Activity extends CameraActivity implements CvCameraViewListener2 {
-    private static final String    TAG = "OCVSample::Activity";
+    private static final String TAG = "OCVSample::Activity";
 
-    private static final int       VIEW_MODE_RGBA     = 0;
-    private static final int       VIEW_MODE_GRAY     = 1;
-    private static final int       VIEW_MODE_CANNY    = 2;
-    private static final int       VIEW_MODE_FEATURES = 5;
+    private enum ViewMode {
+        RGBA,
+        GRAY,
+        CANNY,
+        FEATURES
+    }
 
-    private int                    mViewMode = VIEW_MODE_FEATURES;
-    private Mat                    mRgba;
-    private Mat                    mIntermediateMat;
-    private Mat                    mGray;
+    private ViewMode mViewMode = ViewMode.FEATURES;
+    private Mat mRgba;
+    private Mat mIntermediateMat;
+    private Mat mGray;
 
-    private MenuItem               mItemPreviewRGBA;
-    private MenuItem               mItemPreviewGray;
-    private MenuItem               mItemPreviewCanny;
-    private MenuItem               mItemPreviewFeatures;
+    private MenuItem mItemPreviewRGBA;
+    private MenuItem mItemPreviewGray;
+    private MenuItem mItemPreviewCanny;
+    private MenuItem mItemPreviewFeatures;
 
-    private CameraBridgeViewBase   mOpenCvCameraView;
+    private CameraBridgeViewBase mOpenCvCameraView;
 
-    private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
@@ -74,7 +76,7 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
 
         setContentView(R.layout.tutorial2_surface_view);
 
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial2_activity_surface_view);
+        mOpenCvCameraView = findViewById(R.id.tutorial2_activity_surface_view);
         mOpenCvCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
     }
@@ -134,23 +136,22 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
     }
 
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        final int viewMode = mViewMode;
-        switch (viewMode) {
-        case VIEW_MODE_GRAY:
+        switch (mViewMode) {
+        case GRAY:
             // input frame has gray scale format
             Imgproc.cvtColor(inputFrame.gray(), mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
             break;
-        case VIEW_MODE_RGBA:
+        case RGBA:
             // input frame has RBGA format
             mRgba = inputFrame.rgba();
             break;
-        case VIEW_MODE_CANNY:
+        case CANNY:
             // input frame has gray scale format
             mRgba = inputFrame.rgba();
             Imgproc.Canny(inputFrame.gray(), mIntermediateMat, 80, 100);
             Imgproc.cvtColor(mIntermediateMat, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
             break;
-        case VIEW_MODE_FEATURES:
+        case FEATURES:
             // input frame has RGBA format
             mRgba = inputFrame.rgba();
             mGray = inputFrame.gray();
@@ -165,13 +166,13 @@ public class Tutorial2Activity extends CameraActivity implements CvCameraViewLis
         Log.i(TAG, "called onOptionsItemSelected; selected item: " + item);
 
         if (item == mItemPreviewRGBA) {
-            mViewMode = VIEW_MODE_RGBA;
+            mViewMode = ViewMode.RGBA;
         } else if (item == mItemPreviewGray) {
-            mViewMode = VIEW_MODE_GRAY;
+            mViewMode = ViewMode.GRAY;
         } else if (item == mItemPreviewCanny) {
-            mViewMode = VIEW_MODE_CANNY;
+            mViewMode = ViewMode.CANNY;
         } else if (item == mItemPreviewFeatures) {
-            mViewMode = VIEW_MODE_FEATURES;
+            mViewMode = ViewMode.FEATURES;
         }
 
         return true;
